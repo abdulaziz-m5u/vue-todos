@@ -71,6 +71,16 @@
             Completed
           </button>
         </div>
+
+        <div>
+          <button
+            class="btn-clear-todo"
+            v-if="showClearCompletedButton"
+            @click="clearCompleted"
+          >
+            Clear Completed
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -104,6 +114,9 @@ export default {
         return this.todos.filter((todo) => todo.completed);
       }
       return this.todos;
+    },
+    showClearCompletedButton() {
+      return this.todos.filter((todo) => todo.completed).length > 0;
     },
   },
   directives: {
@@ -144,6 +157,9 @@ export default {
     },
     checkAllTodos() {
       this.todos.forEach((todo) => (todo.completed = event.target.checked));
+    },
+    clearCompleted() {
+      this.todos = this.todos.filter((todo) => !todo.completed);
     },
   },
 };
@@ -241,5 +257,13 @@ export default {
   border-radius: 0.3rem;
   outline: none;
   border: none;
+}
+
+.btn-clear-todo {
+  padding: 0.5rem 1.3rem;
+  border-radius: 0.3rem;
+  outline: none;
+  border: none;
+  background: lightblue;
 }
 </style>
